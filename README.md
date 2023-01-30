@@ -1,1 +1,2 @@
-# unity_texture_atlas
+# Unity Texture Atlas Generator
+The Unity game engine creates a draw call for each material attached to a mesh renderer. This means that using many materials with different textures can significantly impact performance. Grouping the textures into a texture atlas makes it possible to use only a single material and thus only one draw call. The atlas generator automatically groups textures into an atlas and modifies the meshes so they can be used with the atlas material
