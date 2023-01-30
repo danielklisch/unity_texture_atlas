@@ -1,4 +1,5 @@
 # Unity Texture Atlas Generator
+[Download Package](https://github.com/danielklisch/unity_texture_atlas/raw/main/dynamic_texture_atlas.unitypackage)
 The Unity game engine creates a draw call for each material attached to a mesh renderer. This means that using many materials with different textures can significantly impact performance. Grouping the textures into a texture atlas makes it possible to use only a single material and thus only one draw call. An atlas generator automatically groups textures into an atlas and modifies the meshes so they can be used with the atlas material. Compared to traditional atlas generators this generator has the option to modify the mesh when it is loaded at runtime, meaning the user does not need to bake the mesh every time modifications are made. It can also deal with arbitrary uv maps since the information about the atlas is stored in the uv2 and uv3 channels. This makes it possible to tile the same texture multiple times across a single face, as well as change the tiling factor after the atlas has already been built.
 
 <img src='figures/example.PNG'/>
