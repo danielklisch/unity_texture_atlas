@@ -22,7 +22,7 @@ This option modifies meshes at runtime to work with the generated atlas. This me
 The meshes are prepared when clicking the "Bake Meshes" button, but only replace the original meshes at runtime. This option does not have the same drawback as the dynamic option, and it still keeps the original data attached to the object so it can be modified. However, it requires clicking the "Bake Meshes" button every time the model is modified.
 
 ## Replace Originals
-The original objects are replaced with the atlas versions. This delivers the best performance but makes it difficult to make changes to the original model. However the changes can easily be undone by clicking the "Revert" button.
+The original objects are replaced with the atlas versions. This delivers the best performance but makes it difficult to make changes to the original model. However the replacement can easily be undone by clicking the "Revert" button.
 
 ## Known Limitations
 The atlas texture does not support mipmaps as a result of needing to handle arbitrary input uvs. The atlas shader is also limited in terms of texture maps it can accept, but it can be easily extended.
