@@ -13,7 +13,7 @@ The Unity game engine creates a draw call for each material attached to a mesh r
 Assign the "TextureAtlas" Component to an Object. Make sure all the meshes and textures you want to bake are readable in the import settings. Then Click "Bake Textures". The "Border" value can be used to stop adjacent textures from bleeding into eachother.
 
 <img src='figures/atlas.PNG'/>
-Example of a generated texture atlas. The generator creates atlas textures for albedo, normal, and emission textures. The smoothness and metalic values are encoded in the normal and emission map alpha channels and take into account the metallic/gloss map.
+Example of a generated texture atlas. The generator creates atlas textures for albedo, normal, and emission textures. The smoothness and metalic values are encoded in the normal and emission atlas alpha channels and take into account the metallic/gloss map.
 
 ## Dynamic Meshes
 This option modifies meshes at runtime to work with the generated atlas. This means that the base model can be edited without having to worry about the texture atlas. It also makes it possible to make the usage of texture atlases a setting the user can change at runtime, in case there are effects that don't work well with texture atlases. However, this option can increase loading times, especially for large meshes.
