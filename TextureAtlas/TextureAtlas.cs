@@ -141,7 +141,9 @@ public class TextureAtlas : MonoBehaviour {
             Color c_albedo = sortedMaterials[i].color;
             Texture2D tex_normal = sortedMaterials[i].GetTexture("_BumpMap") as Texture2D;
             Texture2D tex_emission = sortedMaterials[i].GetTexture("_EmissionMap") as Texture2D;
+            Texture2D tex_metal = sortedMaterials[i].GetTexture("_MetallicGlossMap") as Texture2D;
             Color c_emission = sortedMaterials[i].GetColor("_EmissionColor");
+            float gloss_scale = sortedMaterials[i].GetFloat("_GlossMapScale");
             float glossiness = sortedMaterials[i].GetFloat("_Glossiness");
             float metallic = sortedMaterials[i].GetFloat("_Metallic");
             EditorUtility.DisplayProgressBar("Baking Atlas Texture", "packing "+tex_albedo.name+"...", i*1f/sortedMaterials.Length);
@@ -154,10 +156,17 @@ public class TextureAtlas : MonoBehaviour {
             for (int ty=0;ty<res+2*border;ty++) {
                 for (int tx=0;tx<res+2*border;tx++) {
                     albedoAtlas.SetPixel(x+tx,y+ty,tex_albedo.GetPixel(tx-border,ty-border)*c_albedo);
-                    if (tex_normal != null) normalAtlas.SetPixel(x+tx,y+ty,NewNormal(tex_normal.GetPixel(tx-border,ty-border),glossiness));
-                    else normalAtlas.SetPixel(x+tx,y+ty,new Color(0.5f, 0.5f, 1f,glossiness));
-                    if (tex_emission != null) emissionAtlas.SetPixel(x+tx,y+ty,NewColor(tex_emission.GetPixel(tx-border,ty-border)*c_emission,metallic));
-                    else emissionAtlas.SetPixel(x+tx,y+ty,new Color(0,0,0,metallic));
+                    float gloss = glossiness;
+                    float metal = metallic;
+                    if (tex_metal != null) {
+                        Color c_metal = tex_metal.GetPixel(tx-border,ty-border);
+                        metal = c_metal.r;
+                        gloss = c_metal.a*gloss_scale;
+                    }
+                    if (tex_normal != null) normalAtlas.SetPixel(x+tx,y+ty,NewNormal(tex_normal.GetPixel(tx-border,ty-border),gloss));
+                    else normalAtlas.SetPixel(x+tx,y+ty,new Color(0.5f, 0.5f, 1f,gloss));
+                    if (tex_emission != null) emissionAtlas.SetPixel(x+tx,y+ty,NewColor(tex_emission.GetPixel(tx-border,ty-border)*c_emission,metal));
+                    else emissionAtlas.SetPixel(x+tx,y+ty,new Color(0,0,0,metal));
                 }
             }
             vertices[i] = new Vector3(((x+border)*1f/atlasWidth), ((y+border)*1f/atlasHeight), 0);
